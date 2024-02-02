@@ -32,7 +32,7 @@ services:
       SECRET: "${SECRET}"
 
       DB_CLIENT: "pg"
-      DB_HOST: "directus"
+      DB_HOST: "${DB_HOST}"
       DB_PORT: "5434"
       DB_DATABASE: "directus"
       DB_USER: "${DB_USER}"
