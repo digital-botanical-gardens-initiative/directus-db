@@ -25,7 +25,7 @@ cd directus-db
 ```sh
 # Database credentials
 POSTGRES_USER=your_postgres_user
-POSTGRES_PASSWORD=your_postgres_password``````
+POSTGRES_PASSWORD=your_postgres_password
 POSTGRES_DB=your_postgres_db
 
 # Directus service credentials
