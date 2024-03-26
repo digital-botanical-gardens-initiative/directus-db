@@ -16,9 +16,6 @@ exec &>> "$LOG_FILE"
 # Enable immediate exit on error
 set -e
 
-# Create backup folders if they don't exist
-mkdir -p "$BACKUP_DIR/$TIMESTAMP"
-
 # Create backups
 tar -czf "$BACKUP_DIR/$TIMESTAMP.tar.gz" -C "$SOURCE_DIR" .
 
