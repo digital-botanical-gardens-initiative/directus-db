@@ -1,8 +1,10 @@
 #!/bin/bash
 
 # Backup directory
-BACKUP_DIR="/media/backup/directus_bckp/long_term_bckp"
-LOG_FILE="/media/backup/directus_bckp/long_term_bckp/bckp.log"
+BACKUP_DIR_LOCAL="/media/backup/directus_bckp/long_term_bckp"
+BACKUP_DIR_DISTANT="/media/share/dbgi/directus_bckp/long_term_bckp"
+LOG_FILE_LOCAL="/media/backup/directus_bckp/long_term_bckp/bckp.log"
+LOG_FILE_DISTANT="/media/share/dbgi/directus_bckp/long_term_bckp/bckp.log"
 
 # Local directory to backup
 SOURCE_DIR="/docker/directus/postgres"
@@ -11,15 +13,17 @@ SOURCE_DIR="/docker/directus/postgres"
 TIMESTAMP=$(date +"%Y%m%d%H%M%S")
 
 # Redirect all output to the log file
-exec &>> "$LOG_FILE"
+exec &>> "$LOG_FILE_LOCAL && $LOG_FILE_DISTANT"
 
 # Enable immediate exit on error
 set -e
 
 # Create backups
-tar -czf "$BACKUP_DIR/$TIMESTAMP.tar.gz" -C "$SOURCE_DIR" .
+tar -czf "$BACKUP_DIR_LOCAL/$TIMESTAMP.tar.gz" -C "$SOURCE_DIR" .
+tar -czf "$BACKUP_DIR_DISTANT/$TIMESTAMP.tar.gz" -C "$SOURCE_DIR" .
+
 
 # Keep only the latest 52 backups
-if [ -n "$(ls -A "$BACKUP_DIR")" ]; then
-    ls -dt "$BACKUP_DIR"/* | tail -n +54 | xargs rm -rf
+if [ -n "$(ls -A "$BACKUP_DIR_LOCAL")" ]; then
+    ls -dt "$BACKUP_DIR_LOCAL"/* | tail -n +54 | xargs rm -rf
 fi
