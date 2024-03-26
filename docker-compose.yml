@@ -5,7 +5,7 @@ services:
       context: ./
       dockerfile: ./Dockerfile
     volumes:
-      - /prog/directus/database:/var/lib/postgresql/data
+      - ${POSTGRES_LOCATION}:/var/lib/postgresql/data
     environment:
       POSTGRES_USER: "${POSTGRES_USER}"
       POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
@@ -26,7 +26,7 @@ services:
     ports:
       - 8056:8055
     volumes:
-      - /prog/directus:/directus/uploads
+      - ${DIRECTUS_LOCATION}:/directus/uploads
     depends_on:
       - cache
       - database
