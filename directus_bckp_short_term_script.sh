@@ -3,8 +3,7 @@
 # Backup directory
 BACKUP_DIR_LOCAL="/media/backup/directus_bckp/short_term_bckp"
 BACKUP_DIR_DISTANT="/media/share/dbgi/directus_bckp/short_term_bckp"
-LOG_FILE_LOCAL="/media/backup/directus_bckp/short_term_bckp/bckp.log"
-LOG_FILE_DISTANT="/media/share/dbgi/directus_bckp/short_term_bckp/bckp.log"
+LOG_FILE="/media/backup/directus_bckp/short_term_bckp/bckp.log"
 
 # Local directory to backup
 SOURCE_DIR="/docker/directus/postgres"
@@ -13,7 +12,7 @@ SOURCE_DIR="/docker/directus/postgres"
 TIMESTAMP=$(date +"%Y%m%d%H%M%S")
 
 # Redirect all output to the log file
-exec &>> "$LOG_FILE_LOCAL && $LOG_FILE_DISTANT"
+exec &>> "$LOG_FILE"
 
 # Enable immediate exit on error
 set -e
