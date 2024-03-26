@@ -21,5 +21,5 @@ tar -czf "$BACKUP_DIR/$TIMESTAMP.tar.gz" -C "$SOURCE_DIR" .
 
 # Keep only the latest 52 backups
 if [ -n "$(ls -A "$BACKUP_DIR")" ]; then
-    ls -dt "$BACKUP_DIR"/* | tail -n +53 | xargs rm -rf
+    ls -dt "$BACKUP_DIR"/* | tail -n +54 | xargs rm -rf
 fi
