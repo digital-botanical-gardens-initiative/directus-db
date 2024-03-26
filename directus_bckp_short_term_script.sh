@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # Backup directory
-BACKUP_DIR="/media/backup/nocodb_bckp/long_term_bckp"
-LOG_FILE="/media/backup/nocodb_bckp/long_term_bckp/bckp.log"
+BACKUP_DIR="/media/backup/directus_bckp/short_term_bckp"
+LOG_FILE="/media/backup/directus_bckp/short_term_bckp/bckp.log"
 
 # Local directory to backup
 SOURCE_DIR="/docker/directus/postgres"
@@ -20,7 +20,7 @@ set -e
 mkdir -p "$BACKUP_DIR/$TIMESTAMP"
 
 # Create backups
-tar -czf "$BACKUP_DIR/$TIMESTAMP/backup.tar.gz" -C "$SOURCE_DIR" .
+tar -czf "$BACKUP_DIR/$TIMESTAMP.tar.gz" -C "$SOURCE_DIR" .
 
 # Keep only the latest 24 backups
 if [ -n "$(ls -A "$BACKUP_DIR")" ]; then
