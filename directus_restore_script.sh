@@ -1,6 +1,7 @@
 #!/bin/bash
 
 # Function to display help and usage instructions
+# test
 show_help() {
     echo "Usage: $0 [backup directory] <timestamp>"
     echo
