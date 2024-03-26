@@ -1,11 +1,11 @@
 #!/bin/bash
 
 # Backup directory
-BACKUP_DIR="/backup/directus_bckp/short_term_bckp"
-LOG_FILE="/backup/directus_bckp/short_term_bckp/bckp.log"
+BACKUP_DIR="/media/backup/nocodb_bckp/long_term_bckp"
+LOG_FILE="/media/backup/nocodb_bckp/long_term_bckp/bckp.log"
 
 # Local directory to backup
-SOURCE_DIR="/prog/directus/database"
+SOURCE_DIR="/docker/directus/postgres"
 
 # Create a timestamp with the format YYYYMMDDHHMMSS
 TIMESTAMP=$(date +"%Y%m%d%H%M%S")
