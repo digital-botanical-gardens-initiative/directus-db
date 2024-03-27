@@ -1,15 +1,12 @@
 #!/bin/bash
 
-# Backup directory
+# Variables
+DATE=$(date +"%Y%m%d%H%M%S")
+POSTGRES_DIR="/docker/directus/postgres"
 BACKUP_DIR_LOCAL="/media/backup/directus_bckp/long_term_bckp"
 BACKUP_DIR_DISTANT="/media/share/dbgi/directus_bckp/long_term_bckp"
 LOG_FILE="/media/backup/directus_bckp/long_term_bckp/bckp.log"
-
-# Local directory to backup
-SOURCE_DIR="/docker/directus/postgres"
-
-# Create a timestamp with the format YYYYMMDDHHMMSS
-TIMESTAMP=$(date +"%Y%m%d%H%M%S")
+RETAIN_BACKUPS=52
 
 # Redirect all output to the log file
 exec &>> "$LOG_FILE"
@@ -17,12 +14,27 @@ exec &>> "$LOG_FILE"
 # Enable immediate exit on error
 set -e
 
-# Create backups
-tar -czf "$BACKUP_DIR_LOCAL/$TIMESTAMP.tar.gz" -C "$SOURCE_DIR" .
-tar -czf "$BACKUP_DIR_DISTANT/$TIMESTAMP.tar.gz" -C "$SOURCE_DIR" .
+mkdir -p "${BACKUP_DIR_LOCAL}/${DATE}"
+mkdir -p "${BACKUP_DIR_DISTANT}/${DATE}"
 
+# Perform backup
+tar -czf "${BACKUP_DIR_LOCAL}/${DATE}/backup.tar.gz" -C "$POSTGRES_DIR" .
+tar -czf "${BACKUP_DIR_DISTANT}/${DATE}/backup.tar.gz" -C "$POSTGRES_DIR" .
 
-# Keep only the latest 52 backups
-if [ -n "$(ls -A "$BACKUP_DIR_LOCAL")" ]; then
-    ls -dt "$BACKUP_DIR_LOCAL"/* | tail -n +54 | xargs rm -rf
+# Check if backup was successful
+if [ $? -eq 0 ]; then
+    echo "Backup completed successfully"
+else
+    echo "Backup failed"
+    exit 1
 fi
+
+# Keep only the latest backups
+cleanup_backups() {
+    local backup_dir="$1"
+    if [ -n "$(ls -A "$backup_dir")" ]; then
+        ls -dt "$backup_dir"/* | tail -n +"$((RETAIN_BACKUPS+2))" | xargs rm -rf
+    fi
+}
+
+cleanup_backups "$BACKUP_DIR_LOCAL"
