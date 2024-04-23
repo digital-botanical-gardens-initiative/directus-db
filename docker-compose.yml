@@ -1,4 +1,4 @@
-version: "3.9"
+version: "3"
 services:
   database:
     build:
@@ -21,12 +21,13 @@ services:
     image: redis:6
 
   directus:
-    image: directus/directus:10.10.4
+    image: directus/directus:latest
     restart: always
     ports:
       - 8056:8055
     volumes:
       - ${DIRECTUS_LOCATION}:/directus/uploads
+      - ${DIRECTUS_LOCATION}:/directus/extensions
     depends_on:
       - cache
       - database
