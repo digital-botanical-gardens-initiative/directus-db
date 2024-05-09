@@ -27,7 +27,7 @@ services:
       - 8056:8055
     volumes:
       - ${DIRECTUS_LOCATION}:/directus/uploads
-      - ${DIRECTUS_LOCATION}:/directus/extensions
+      - ${DIRECTUS_LOCATION}/extensions:/directus/extensions
     depends_on:
       #- cache
       - database
