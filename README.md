@@ -1,3 +1,16 @@
+# Archived !
+
+Please refer to the now splitted repos :
+
+- https://github.com/digital-botanical-gardens-initiative/Directus-prod
+- https://github.com/digital-botanical-gardens-initiative/Directus-dev
+- https://github.com/digital-botanical-gardens-initiative/directus-backup
+
+------
+
+
+
+
 # DBGI Directus instance
 
 This repository contains a Docker Compose setup for a Directus instance for the DBGI sample handling. This setup is temporary (longer term solution is beeing built at https://github.com/earth-metabolome-initiative/emi-monorepo). To get started, follow the instructions below.
